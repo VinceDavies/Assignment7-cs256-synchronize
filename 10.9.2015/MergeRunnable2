@@ -1,0 +1,43 @@
+package as7c;
+
+public class MergeRunnable2 implements Runnable {
+	private String file1;
+	private Object obj1;
+	private String file2;
+	private Object obj2;
+	private String fileMerged;
+	private Object obj12;
+
+	public MergeRunnable2(String f1, Object o1, String f2, Object o2,
+			String fm, Object o12) {
+		file1 = f1;
+		file2 = f2;
+		obj1 = o1;
+		obj2 = o2;
+		fileMerged = fm;
+		obj12 = o12;
+	}
+
+	public void run() {
+		try {
+			synchronized (obj12) {
+				Thread.sleep(100);
+				System.out.println("got obj12");
+
+				synchronized (obj1) {
+					System.out.println("got first one");
+					Thread.sleep(100);
+					synchronized (obj2) {
+						System.out.println("got second one");
+						Thread.sleep(100);
+						System.out.println("merging done");
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
